@@ -21,7 +21,7 @@ export async function getTeamData(teamId: string) {
   }
 
   const res = await fetch(
-    `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams/${teamId}/schedule`,
+    `https://site.api.espn.com/apis/site/v2/sports/football/mens-college-football/teams/${teamId}/schedule`,
     { next: { revalidate: 60 } }
   );
   const data: z.infer<typeof Schedule> = await res.json();
@@ -86,7 +86,7 @@ export async function getAllTeamIds() {
   for (let page = 1; page <= 8; page++) {
     pagePromises.push(
       fetch(
-        `https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/teams?page=${page}`
+        `https://site.api.espn.com/apis/site/v2/sports/football/mens-college-football/teams?page=${page}`
       ).then((res) => res.json())
     );
   }
@@ -109,7 +109,7 @@ export async function getTodaySchedule() {
   // ?dates=20230107
   unstable_noStore();
   const res = await fetch(
-    'https://site.web.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard'
+    'https://site.web.api.espn.com/apis/site/v2/sports/football/mens-college-football/scoreboard'
   );
 
   const data: z.infer<typeof Scoreboard> = await res.json();
@@ -160,7 +160,7 @@ function formatTeamData(teamData: any) {
 export async function getConferenceRankings() {
   // Just Big 12 for now
   const res = await fetch(
-    'https://site.web.api.espn.com/apis/v2/sports/basketball/mens-college-basketball/standings?region=us&lang=en&contentorigin=espn&group=8&season=2024',
+    'https://site.web.api.espn.com/apis/v2/sports/football/mens-college-football/standings?region=us&lang=en&contentorigin=espn&group=8&season=2024',
     {
       next: {
         revalidate: 60,
